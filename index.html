@@ -41,6 +41,9 @@ nav.scrolled{background:rgba(26,8,0,.97)}
 .nav-links a:hover{color:var(--gold)}
 .nav-cta{background:var(--gold);color:var(--dark);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;text-decoration:none;transition:all .3s}
 .nav-cta:hover{background:var(--gold-light);transform:translateY(-1px)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.menu-toggle{display:none}
+.mobile-overlay{display:none}
 
 /* ── SECTION 1: HERO ── */
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--dark)}
@@ -300,21 +303,166 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
 @media(max-width:900px){
   nav{padding:16px 24px}
   .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-right{display:flex;align-items:center;gap:16px}
+  
+  /* HAMBURGER */
+  .menu-toggle{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:10px;z-index:1100}
+  .menu-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s ease;border-radius:2px}
+  .menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-toggle.active span:nth-child(2){opacity:0}
+  .menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* MOBILE OVERLAY */
+  .mobile-overlay{position:fixed;inset:0;background:var(--dark);z-index:1050;display:flex;align-items:center;justify-content:center;padding:48px;opacity:0;pointer-events:none;transition:opacity .4s ease;backdrop-filter:blur(15px)}
+  .mobile-overlay.active{display:flex;opacity:1;pointer-events:all}
+  .mobile-nav-links{list-style:none;text-align:center;display:flex;flex-direction:column;gap:32px;margin-bottom:48px}
+  .mobile-nav-links a{color:var(--white);font-family:'Playfair Display',serif;font-size:32px;text-decoration:none;font-weight:700;font-style:italic}
+  .mobile-cta{display:block;background:var(--gold);color:var(--dark);padding:16px 32px;text-align:center;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+
   #how,#product,#gallery,#pricing,#testimonials,#contact{padding:80px 24px}
   .hero-inner{padding:0 24px}
-  .bags-inner{grid-template-columns:1fr}
-  .bags-card-stack{height:280px}
+  .hero-heading{padding-top:100px;font-size:clamp(44px,11vw,80px);letter-spacing:-1px}
+  .hero-center{flex-direction:column;gap:20px}
+  .hero-cup{width:90vw;max-width:450px}
+  .hero-side-left, .hero-side-right, .vertical-text{display:none}
+  .hero-btns{flex-direction:column;width:100%}
+  .btn-gold, .btn-outline{width:100%;justify-content:center;padding:18px}
+
+  .steps-grid{grid-template-columns:1fr;gap:16px}
+  .gold-disclosure{grid-template-columns:1fr;padding:40px 24px;gap:40px}
+  .disclosure-visual{height:200px}
   
-  .gallery-grid{grid-template-columns:1fr 1fr}
-  .gallery-card.wide{grid-column:span 1;aspect-ratio:3/4}
+  .product-inner{grid-template-columns:1fr;gap:48px}
+  .cup-showcase{margin:40px 0}
+  .cup-label{display:none} /* Hide labels on mobile for cleaner look */
+  
+  .filter-pills{overflow-x:auto;white-space:nowrap;padding-bottom:12px;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-card.wide{grid-column:span 1}
+  
   #festival{grid-template-columns:1fr}
+  .fest-panel{padding:40px 24px;height:400px}
+  .fest-divider{display:none}
+  .craft-strip{grid-template-columns:1fr;padding:48px 24px;gap:40px}
+  
+  .bags-inner{grid-template-columns:1fr;gap:48px}
+  .bags-card-stack{height:300px}
+  
+  .pricing-grid{grid-template-columns:1fr;gap:24px}
   .price-card.dark{transform:none}
-  .hero-heading{padding-top:80px;font-size:clamp(48px,12vw,80px)}
+  
+  .testi-grid{grid-template-columns:1fr;gap:24px}
+  .testi-card:nth-child(1),.testi-card:nth-child(3){transform:none}
+  .stats-row{grid-template-columns:1fr}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  
   .contact-details{flex-direction:column;gap:28px}
   .contact-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:28px}
-  footer{padding:32px 24px;flex-direction:column;text-align:center}
-  .gold-disclosure{grid-template-columns:1fr;padding:40px 24px}
-  .testi-card:nth-child(1),.testi-card:nth-child(3){transform:none}
+  
+  footer{padding:32px 24px;flex-direction:column;text-align:center;gap:32px}
+  .footer-links{flex-wrap:wrap;justify-content:center;gap:16px}
+}
+
+/* SMALLER MOBILE */
+@media(max-width:480px){
+  .hero-heading{font-size:42px}
+  .sec-title{font-size:32px}
+  .pricing-title{font-size:38px}
+  .contact-title{font-size:36px}
+  .price-card{padding:40px 24px}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* CONTACT FORM STYLES */
+.contact-form {
+  margin-top: 60px;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: left;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(200,150,12,0.15);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 15px rgba(200,150,12,0.1);
+}
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8960C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+}
+.form-group select option {
+  background-color: #1a1a1a;
+  color: var(--white);
+}
+.form-group textarea {
+  resize: none;
+}
+.submit-btn {
+  width: 100%;
+  background: var(--gold);
+  color: var(--dark);
+  border: none;
+  padding: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.submit-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(200,150,12,0.2);
+}
+.form-status {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 4px;
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.form-status.success {
+  background: var(--gold);
+  color: var(--dark);
+  display: block;
+}
+.form-status.error {
+  background: #ff4444;
+  color: #fff;
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -333,8 +481,29 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get Started</a>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Get Started</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <div class="mobile-menu-inner">
+    <ul class="mobile-nav-links">
+      <li><a href="#how">About</a></li>
+      <li><a href="#gallery">Designs</a></li>
+      <li><a href="#product">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="mobile-cta">Request A Sample</a>
+  </div>
+</div>
 
 <!-- ── HERO ── -->
 <section id="hero">
@@ -604,7 +773,7 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
   <div class="pricing-grid">
     <div class="price-card light reveal">
       <p class="price-size">Small 250ml</p>
-      <p class="price-amount">₹8.50</p>
+      <p class="price-amount">₹8</p>
       <p class="price-per">per cup</p>
       <ul class="price-feats">
         <li>100% Recyclable</li>
@@ -617,7 +786,7 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
     <div class="price-card dark reveal delay-1">
       <div class="price-badge">Most Popular</div>
       <p class="price-size">Regular 500ml</p>
-      <p class="price-amount">₹9.50</p>
+      <p class="price-amount">₹10</p>
       <p class="price-per">per cup</p>
       <ul class="price-feats">
         <li>100% Recyclable</li>
@@ -629,7 +798,7 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
     </div>
     <div class="price-card light reveal delay-2">
       <p class="price-size">Large 750ml</p>
-      <p class="price-amount">₹11.00</p>
+      <p class="price-amount">₹12</p>
       <p class="price-per">per cup</p>
       <ul class="price-feats">
         <li>100% Recyclable</li>
@@ -715,24 +884,56 @@ footer{background:var(--dark);padding:40px 80px;display:flex;justify-content:spa
     <h2 class="contact-title reveal delay-1">Ready to make<br>your cups<em>unforgettable?</em></h2>
     <div class="contact-details reveal delay-2">
       <div class="contact-item">
-        <p class="contact-key">Founder</p>
-        <p class="contact-val">Kunal Singhi</p>
-      </div>
-      <div class="contact-item">
         <p class="contact-key">Email</p>
         <p class="contact-val">imkunal2024@gmail.com</p>
+        <p class="contact-val">ayushpatel2731@gmail.com</p>
       </div>
       <div class="contact-item">
         <p class="contact-key">Phone</p>
         <p class="contact-val">+91 92462 69410</p>
+        <p class="contact-val">+91 82384 27405</p>
       </div>
       <div class="contact-item">
         <p class="contact-key">Location</p>
         <p class="contact-val">Bangalore, India</p>
       </div>
     </div>
-    <a href="mailto:imkunal2024@gmail.com" class="contact-cta reveal delay-3">Request a Free Sample</a>
-    <p class="contact-note reveal delay-4">Minimum 1,000 Cups · 12–15 Day Delivery · 100% Custom Design</p>
+
+    <!-- LEAD GENERATION FORM -->
+    <form class="contact-form reveal delay-3" id="inquiryForm" action="https://formspree.io/f/xnjgyvvl" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Contact Person" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="business" placeholder="Company / Café Name">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="phone" placeholder="Phone Number" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <select name="inquiry_type" required title="Select Inquiry Type">
+          <option value="" disabled selected>Nature of Inquiry...</option>
+          <option value="Free Sample">Request A Free Sample</option>
+          <option value="Bulk Order">Bulk Order Pricing</option>
+          <option value="Dealer">Become a Dealer/Distributor</option>
+          <option value="Design">Custom Design Collaboration</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <textarea name="message" rows="4" placeholder="Your requirements or questions..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Inquiry</button>
+      <div class="form-status" id="formStatus">Inquiry sent successfully. We'll be in touch!</div>
+    </form>
+
+    <p class="contact-note reveal delay-4">Immediate Assistance: Kunal Singhi (Founder) · +91 92462 69410</p>
   </div>
 </section>
 
@@ -786,12 +987,42 @@ window.addEventListener('scroll',()=>{
 });
 
 // Scroll reveal
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('visible');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
-},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>observer.observe(el));
+}, { 
+  threshold: 0.05, 
+  rootMargin: '0px 0px -50px 0px' 
+});
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const body = document.body;
+
+function toggleMenu() {
+  if (!menuToggle || !mobileOverlay) return;
+  menuToggle.classList.toggle('active');
+  mobileOverlay.classList.toggle('active');
+  body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : 'auto';
+}
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleMenu();
+  });
+}
+
+// Close menu on link click
+document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    toggleMenu();
+  });
+});
 
 // Counter animation
 function animCount(el,target){
@@ -830,7 +1061,6 @@ function toggleCup(state,btn){
   btn.classList.add('active');
 }
 document.getElementById('cupImg').style.transition='opacity .3s';
-
 // Filter pills
 document.querySelectorAll('.pill').forEach(p=>{
   p.addEventListener('click',function(){
@@ -845,6 +1075,58 @@ window.addEventListener('scroll',()=>{
   const cup=document.querySelector('.hero-cup-wrap');
   if(cup) cup.style.transform=`translateY(${y*.15}px)`;
 });
+
+// Inquiry form submission via Formspree (Background Email)
+const inquiryForm = document.getElementById('inquiryForm');
+const formStatus = document.getElementById('formStatus');
+
+if (inquiryForm) {
+  inquiryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = inquiryForm.querySelector('button');
+    const originalText = btn.innerText;
+    
+    // Check if the placeholder ID is still there
+    const action = inquiryForm.getAttribute('action');
+    if (action.includes('YOUR_FORM_ID')) {
+      alert('Please replace "YOUR_FORM_ID" with your actual Formspree ID to receive emails!');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = 'Sending Inquiry...';
+    
+    const formData = new FormData(inquiryForm);
+    
+    try {
+      const response = await fetch(inquiryForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        inquiryForm.reset();
+        formStatus.innerText = 'MESSAGE SENT SUCCESSFULLY! WE WILL CONTACT YOU SOON.';
+        formStatus.className = 'form-status success';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      formStatus.innerText = 'OOPS! SOMETHING WENT WRONG. PLEASE TRY AGAIN.';
+      formStatus.className = 'form-status error';
+    } finally {
+      btn.disabled = false;
+      btn.innerText = originalText;
+      setTimeout(() => {
+        formStatus.className = 'form-status';
+      }, 6000);
+    }
+  });
+}
+
 </script>
 </body>
 </html>
